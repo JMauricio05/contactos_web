@@ -15,6 +15,7 @@ function mostrarContactos() {
     const tbody = document
         .getElementById('contactosTable')
         .getElementsByTagName('tbody')[0];
+    tbody.innerHTML = '';
     for (let index in contactos) {
         const contacto = contactos[index];
         const id = parseInt(index) + 1;
@@ -28,4 +29,33 @@ function mostrarContactos() {
     }
 }
 mostrarContactos();
+
+function cerrarModal() {
+    document.getElementById('formularioModal')
+        .classList.add('ocularModal');
+    const formulario = document.forms['formContacto'];
+    formulario.reset();
+}
+
+document.getElementById('cerrarModalBtn').addEventListener('click', () => {
+    cerrarModal();
+});
+
+document.getElementById('registrarBtn').addEventListener('click', () => {
+    document.getElementById('formularioModal')
+        .classList.remove('ocularModal');
+});
+
+document.getElementById('fomularioContacto').addEventListener('submit', (ev) => {
+    ev.preventDefault();
+    const formulario = document.forms['formContacto'];
+    const contacto = {
+        nombre: formulario['nombre'].value,
+        email: formulario['email'].value,
+        telefono: formulario['telefono'].value
+    };
+    contactos.push(contacto);
+    cerrarModal();
+    mostrarContactos();
+});
 

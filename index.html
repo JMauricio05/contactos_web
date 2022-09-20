@@ -74,6 +74,20 @@
             </form>
         </div>
     </div>
+    <div id="msgModal" class="contentModal ocularModal">
+        <div class="contentFormulario">
+            <div class="btnCerrarModal">
+                <button id="cerrarMsgModalBtn" class="btnCerrar" onclick="cerrarMsgModal()">X</button>
+            </div>
+            <div name="formContacto">
+                <p>¿Desea eliminar el registro?</p>
+                <div class="controlBtns">
+                    <button class="btnElimiar" onclick="onClickConfirmarEliminar()">Si</button>
+                    <button class="btnGuardar" onclick="cerrarMsgModal()">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="js/index.js"></script>
 </body>
 

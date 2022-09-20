@@ -28,7 +28,7 @@ function mostrarContactos() {
         fila += '   <td>' + contacto.email + '</td>';
         fila += '   <td>' + contacto.telefono + '</td>';
         fila += '   <td><button class="btnModificar" onclick="onClickModificar(' + id + ')">M</button></td>';
-        fila += '   <td><button class="btnElimiar">E</button></td>';
+        fila += '   <td><button class="btnElimiar" onclick="onClickEliminar(' + id + ')">E</button></td>';
         fila += '</tr>';
         tbody.innerHTML += fila;
     }
@@ -81,6 +81,22 @@ function onClickModificar(id) {
     formulario['email'].value = contacto.email;
     formulario['telefono'].value = contacto.telefono;
     operacion = 'modificar';
+}
+
+function onClickEliminar(id) {
+    document.getElementById('msgModal').classList.remove('ocularModal');
+    indexRegistroSeleccionado = id - 1;
+}
+
+function cerrarMsgModal() {
+    document.getElementById('msgModal').classList.add('ocularModal');
+    indexRegistroSeleccionado = null;
+}
+
+function onClickConfirmarEliminar() {
+    contactos.splice(indexRegistroSeleccionado, 1);
+    cerrarMsgModal();
+    mostrarContactos();
 }
 
 

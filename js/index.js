@@ -11,6 +11,9 @@ let contactos = [
     }
 ];
 
+let operacion = ''; //registrar|modificar|eliminar
+let indexRegistroSeleccionado = null;
+
 function mostrarContactos() {
     const tbody = document
         .getElementById('contactosTable')
@@ -24,6 +27,8 @@ function mostrarContactos() {
         fila += '   <td>' + contacto.nombre + '</td>';
         fila += '   <td>' + contacto.email + '</td>';
         fila += '   <td>' + contacto.telefono + '</td>';
+        fila += '   <td><button class="btnModificar" onclick="onClickModificar(' + id + ')">M</button></td>';
+        fila += '   <td><button class="btnElimiar">E</button></td>';
         fila += '</tr>';
         tbody.innerHTML += fila;
     }
@@ -44,6 +49,8 @@ document.getElementById('cerrarModalBtn').addEventListener('click', () => {
 document.getElementById('registrarBtn').addEventListener('click', () => {
     document.getElementById('formularioModal')
         .classList.remove('ocularModal');
+    document.getElementById('tituloForm').innerText = 'Registrar';
+    operacion = 'registrar';
 });
 
 document.getElementById('fomularioContacto').addEventListener('submit', (ev) => {
@@ -54,8 +61,27 @@ document.getElementById('fomularioContacto').addEventListener('submit', (ev) => 
         email: formulario['email'].value,
         telefono: formulario['telefono'].value
     };
-    contactos.push(contacto);
+    if (operacion == 'registrar') {
+        contactos.push(contacto);
+    } else {
+        contactos[indexRegistroSeleccionado] = contacto;
+    }
     cerrarModal();
     mostrarContactos();
 });
+
+function onClickModificar(id) {
+    document.getElementById('formularioModal')
+        .classList.remove('ocularModal');
+    document.getElementById('tituloForm').innerText = 'Modificar';
+    indexRegistroSeleccionado = id - 1;
+    const contacto = contactos[indexRegistroSeleccionado];
+    const formulario = document.forms['formContacto'];
+    formulario['nombre'].value = contacto.nombre;
+    formulario['email'].value = contacto.email;
+    formulario['telefono'].value = contacto.telefono;
+    operacion = 'modificar';
+}
+
+
 
